@@ -29,7 +29,7 @@ $(function() {
         progressbar.text('Всё готово!');
         setTimeout(function () {
            $('.progressbar').fadeOut(800);
-        }, 2000);
+        }, 1000);
     });
 
     photoBig.load(function() {
@@ -76,18 +76,22 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
 
 function slider(param) {
     var photoBig = $('.box__photo-item img'),
-        _this = param,
         getAttr ='';
 
     (param.hasClass('box__control')) ?
         getAttr = $('.box__mini_state_active').next().attr('data') :
-        getAttr = _this.attr('data');
+        getAttr = param.attr('data');
 
-    if (photoBig.attr('src') !== $(this).attr('data')) {
+    if (photoBig.attr('src') !== getAttr) {
         photoBig.eq(0).animate({'left': '-' + photoBig.width()}, speed);
         setTimeout(function () {
             photoBig.remove();
-            (param.hasClass('box__control')) && $('.box__mini_state_active').removeClass('box__mini_state_active').next().addClass('box__mini_state_active');
+            (param.hasClass('box__control')) &&
+            $('.box__mini_state_active')
+                .removeClass('box__mini_state_active')
+                .next()
+                .addClass('box__mini_state_active');
+
             $('<img>')
                 .hide()
                 .attr('src', getAttr)
@@ -122,14 +126,56 @@ function slider(param) {
         slider($(this));
     });
 
-    $('.box__control').bind('mousedown', function(){
+    $('.box__control_direction_right').bind('mousedown', function(){
         slider($(this));
+    });
+
+    $('.box__control_direction_left').bind('mousedown', function(){
+
+        var photoBig = $('.box__photo-item img'),
+            getAttr = $('.box__mini_state_active').prev().attr('data');
+
+            photoBig.css('left', '');
+            photoBig.eq(0).animate({'right': '-' + photoBig.width()}, speed);
+            setTimeout(function () {
+                photoBig.remove();
+                $('.box__mini_state_active')
+                    .removeClass('box__mini_state_active')
+                    .prev()
+                    .addClass('box__mini_state_active');
+
+                $('<img>')
+                    .hide()
+                    .attr('src', getAttr)
+                    .appendTo('.box__photo-item')
+                    .load(function() {
+                        $(this)
+                            .css({
+                                'margin-top': photoWrap.height()/2 - $(this).height()/2,
+                                'left': '-'+$(this).width()+'px'
+                            })
+                            .show()
+                            .animate({'left': photoWrap.width()/2 - $(this).width()/2}, speed, 'swing');
+
+                    });
+
+                $(window).resize(function() {
+                    photoBig = $('.box__photo-item img');
+                    photoWrap.css('height', $(window).height());
+                    photoBig.css({
+                        'margin-top': photoWrap.height()/2 - photoBig.height()/2,
+                        'right': photoWrap.width()/2 - photoBig.width()/2
+                        });
+                });
+            }, speed);
+
     });
 
 });
 
     $('.box__thumb-arrow').bind('mousedown', function(){
-        ($(this).hasClass('box__thumb-arrow_direction_right')) ? scrollLength = scrollLength + 150 : scrollLength = scrollLength - 150;
+        ($(this).hasClass('box__thumb-arrow_direction_right')) ?
+        scrollLength += 150 : scrollLength -= 150;
         scrollBar.animate({'scrollLeft': '+' + scrollLength}, speed);
     });
 });
