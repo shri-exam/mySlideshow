@@ -26,7 +26,7 @@
                                 },
                                 {
                                     elem: 'count-photos'
-                                }, ' фото'
+                                }
                             ]
                         }
                     ]
@@ -34,7 +34,7 @@
                 {
                     block: 'progressbar',
                     mods: { theme: 'blue', type: 'stripes' },
-                    content: { elem: 'loading', content: 'Загружаю фотки ..' }
+                    content: { elem: 'loading' }
                 },
                 {
                     block: 'box',

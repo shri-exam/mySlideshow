@@ -141,7 +141,7 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
 });
 
     $('.box__thumb-arrow').bind('mousedown', function(){
-        ($(this).hasClass('box__thumb-arrow_direction_right')) ? scrollLength = scrollLength + 100 : scrollLength = scrollLength - 100;
+        ($(this).hasClass('box__thumb-arrow_direction_right')) ? scrollLength = scrollLength + 150 : scrollLength = scrollLength - 150;
         scrollBar.animate({'scrollLeft': '+' + scrollLength}, speed);
     });
 });

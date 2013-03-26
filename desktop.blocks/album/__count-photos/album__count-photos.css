@@ -1,0 +1,5 @@
+.album__count-photos:after
+{
+    content: " фото";
+    font-weight: 400;
+}
