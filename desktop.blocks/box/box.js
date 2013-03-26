@@ -74,68 +74,56 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
         return photoThumb;
     })();
 
-    photoThumb.bind('mousedown', function(){
-        var photoBig = $('.box__photo-item img'),
-            _this = $(this);
+function slider(param) {
+    var photoBig = $('.box__photo-item img'),
+        _this = param,
+        getAttr ='';
 
-        if (photoBig.attr('src') !== $(this).attr('data')) {
-            photoBig.eq(0).animate({'left': '-' + photoBig.width()}, speed, 'swing');
-            setTimeout(function () {
-                photoBig.remove();
-                $('<img>')
-                    .hide()
-                    .attr('src', _this.attr('data'))
-                    .appendTo('.box__photo-item')
-                    .load(function() {
-                        $(this)
-                            .css({
-                                'margin-top': photoWrap.height()/2 - $(this).height()/2,
-                                'right': '-'+$(this).width()+'px'
-                            })
-                            .show()
-                            .animate({'right': photoWrap.width()/2 - $(this).width()/2}, speed, 'swing');
-                    });
+    (param.hasClass('box__control')) ?
+        getAttr = $('.box__mini_state_active').next().attr('data') :
+        getAttr = _this.attr('data');
 
-                $(window).resize(function() {
-                    photoBig = $('.box__photo-item img');
-                    photoWrap.css('height', $(window).height());
-                    photoBig.css({
-                        'margin-top': photoWrap.height()/2 - photoBig.height()/2,
-                        'right': photoWrap.width()/2 - photoBig.width()/2
-                        });
+    if (photoBig.attr('src') !== $(this).attr('data')) {
+        photoBig.eq(0).animate({'left': '-' + photoBig.width()}, speed);
+        setTimeout(function () {
+            photoBig.remove();
+            (param.hasClass('box__control')) && $('.box__mini_state_active').removeClass('box__mini_state_active').next().addClass('box__mini_state_active');
+            $('<img>')
+                .hide()
+                .attr('src', getAttr)
+                .appendTo('.box__photo-item')
+                .load(function() {
+                    $(this)
+                        .css({
+                            'margin-top': photoWrap.height()/2 - $(this).height()/2,
+                            'right': '-'+$(this).width()+'px'
+                        })
+                        .show()
+                        .animate({'right': photoWrap.width()/2 - $(this).width()/2}, speed, 'swing');
                 });
-            }, speed);
-        }
+
+            $(window).resize(function() {
+                photoBig = $('.box__photo-item img');
+                photoWrap.css('height', $(window).height());
+                photoBig.css({
+                    'margin-top': photoWrap.height()/2 - photoBig.height()/2,
+                    'right': photoWrap.width()/2 - photoBig.width()/2
+                    });
+            });
+        }, speed);
+    }
+    if(!param.hasClass('box__control')) {
         photoThumb.removeClass('box__mini_state_active');
-        $(this).addClass('box__mini_state_active');
+        param.addClass('box__mini_state_active');
+    }
+}
+
+    photoThumb.bind('mousedown', function(){
+        slider($(this));
     });
 
     $('.box__control').bind('mousedown', function(){
-        var photoBig = $('.box__photo-item img'),
-            _this = $(this);
-
-            photoBig.eq(0).animate({'left': '-' + photoBig.width()}, speed, 'swing');
-            setTimeout(function () {
-                photoBig.remove();
-                getAttr = $('.box__mini_state_active').next().attr('data');
-                $('<img>')
-                    .hide()
-                    .attr('src', getAttr)
-                    .appendTo('.box__photo-item')
-                    .load(function() {
-                        $(this)
-                            .css({
-                                'margin-top': photoWrap.height()/2 - $(this).height()/2,
-                                'right': '-'+$(this).width()+'px'
-                            })
-                            .show()
-                            .animate({'right': photoWrap.width()/2 - $(this).width()/2}, speed, 'swing');
-                    });
-                $('.box__mini_state_active')
-                    .removeClass('box__mini_state_active')
-                    .next()
-                    .addClass('box__mini_state_active');
-            }, speed);
+        slider($(this));
     });
 
 });
