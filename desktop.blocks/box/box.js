@@ -1,8 +1,7 @@
 $(function() {
-$.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?',function(data){
+
     var photoWrap = $('.box__photo-wrapper'),
         photoBig = $('.box__photo-item img'),
-        photoThumb = $('.box__mini'),
         dfdTitle = $.Deferred(),
         dfdFullPhoto = $.Deferred(),
         album = $('.album'),
@@ -22,6 +21,8 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
         alignPhoto(photoBig);
     });
 
+$.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?',function(data){
+
     (function getFullPhoto() {
             photoBig.attr('src', data.entries[0].img.XL.href).load(function() {
             alignPhoto($(this));
@@ -29,11 +30,6 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
         });
             return dfdFullPhoto.resolve();
     })();
-    $.when(dfdFullPhoto).done(function (){
-        setTimeout(function () {
-            photoBig.fadeIn(800);
-        }, 800);
-    });
 
     (function getTitle() {
         $('.album__title-name').text(data.title);
@@ -41,9 +37,6 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
 
         return dfdTitle.resolve();
     })();
-    $.when(dfdTitle).done(function (){
-        $('.album').removeClass('album_visibility_hidden');
-    });
 
     (function getPhotos () {
         for (var i = 0; i < 50; i++) {
@@ -55,7 +48,19 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
         }
     })();
 
-    $('.box__mini').click(function() {
+    $.when(dfdFullPhoto).done(function (){
+        setTimeout(function () {
+            photoBig.fadeIn(800);
+        }, 800);
+    });
+
+    $.when(dfdTitle).done(function (){
+        $('.album').removeClass('album_visibility_hidden');
+    });
+});
+
+    var photoThumb = $('.box__mini');
+    photoThumb.click(function() {
         var photoBig = $('.box__photo-item img'),
             photoThumb = $('.box__mini');
             _this = $(this);
@@ -90,13 +95,12 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
         $(this).addClass('box__mini_state_active');
     });
 
-        $('.box__thumb-arrow').click(function() {
-            if( $(this).hasClass('box__thumb-arrow_direction_right') ) {
-                scrollLength = scrollLength + 100;
-            } else {
-                scrollLength = scrollLength - 100;
-            }
-                scrollBar.animate({'scrollLeft': '+'+scrollLength}, speed);
-        });
+    $('.box__thumb-arrow').click(function() {
+        if( $(this).hasClass('box__thumb-arrow_direction_right') ) {
+            scrollLength = scrollLength + 100;
+        } else {
+            scrollLength = scrollLength - 100;
+        }
+            scrollBar.animate({'scrollLeft': '+'+scrollLength}, speed);
     });
 });
