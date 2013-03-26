@@ -1,0 +1,16 @@
+.box
+{
+    text-align: center;
+}
+
+.box__inner_position_bottom
+{
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+
+    z-index: 3;
+
+    width: 100%;
+    overflow: hidden;
+}

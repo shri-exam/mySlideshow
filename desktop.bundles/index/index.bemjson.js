@@ -1,7 +1,7 @@
 ({
     block: 'b-page',
-    title: 'Title of the page',
-    favicon: '/favicon.ico',
+    title: 'Галерея картинок | ШРИ: Михаил Пешехонов',
+    favicon: 'http://yandex.st/lego/_/liBu5rfmzjkGy4nVf7wXsVl8m8w.png',
     head: [
         { elem: 'css', url: '_index.css', ie: false },
         { elem: 'css', url: '_index', ie: true },
@@ -12,21 +12,79 @@
     ],
     content:[
         {
-            block: 'header',
+            elem: 'inner',
             content: [
-                'header content goes here'
-            ]
-        },
-        {
-            block: 'content',
-            content: [
-                'main content'
-            ]
-        },
-        {
-            block: 'footer',
-            content: [
-                'footer content goes here'
+                {
+                    block: 'album',
+                    mods: { visibility: 'hidden' },
+                    content: [
+                        {
+                            elem: 'title',
+                            content: [
+                                {
+                                    elem: 'title-name'
+                                },
+                                {
+                                    elem: 'count-photos'
+                                }, ' фото'
+                            ]
+                        }
+                    ]
+                },
+                {
+                    block: 'box',
+                    content: [
+                        {
+                            elem: 'photo-wrap',
+                            content: [
+                                {
+                                    elem: 'control',
+                                    mods: { direction: 'left' }
+                                },
+                                {
+                                    elem: 'photo',
+                                    content: [
+                                        {
+                                            elem: 'photo-wrapper',
+                                            content: [
+                                                {
+                                                    elem: 'photo-item',
+                                                    content: { tag: 'img' }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    elem: 'control',
+                                    mods: { direction: 'right' }
+                                }
+                            ]
+                        },
+                        {
+                            elem: 'wrapper-thumbs',
+                            content: [
+                                {
+                                    elem: 'inner',
+                                    mods: { position: 'bottom' },
+                                    content: [
+                                        {
+                                            elem: 'thumb-arrow',
+                                            mods: { direction: 'left' }
+                                        },
+                                        {
+                                            elem: 'thumbs-list'
+                                        },
+                                        {
+                                            elem: 'thumb-arrow',
+                                            mods: { direction: 'right' }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
             ]
         }
     ]

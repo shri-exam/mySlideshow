@@ -1,0 +1,4 @@
+block album,
+    elem count-photos {
+        tag: 'b'
+}

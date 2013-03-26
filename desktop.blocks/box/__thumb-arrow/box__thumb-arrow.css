@@ -1,0 +1,55 @@
+.box__thumb-arrow
+{
+    width: 25px;
+    height: 100%;
+
+    background: rgba(0,0,0,0.9);
+    box-shadow: 7px 0 5px -5px rgba(0,0,0,0.9);
+
+    position: absolute;
+    top: 0;
+    z-index: 1;
+
+    cursor: pointer;
+}
+
+.box__thumb-arrow:after
+{
+    position: absolute;
+    top: 30px;
+    left: 6px;
+    content: "";
+
+    width: 15px;
+    height: 23px;
+
+    background: url(../box.gif) -16px -104px no-repeat;
+
+    -webkit-transition: .3s;
+       -moz-transition: .3s;
+         -o-transition: .3s;
+            transition: .3s;
+
+    opacity: .4;
+}
+
+.box__thumb-arrow.box__thumb-arrow_direction_right.box__thumb-arrow:after
+{
+    background-position: -15px -153px;
+}
+
+.box__thumb-arrow:hover.box__thumb-arrow:after
+{
+    opacity: 1;
+}
+
+.box__thumb-arrow.box__thumb-arrow_direction_left
+{
+    left: 0;
+}
+
+.box__thumb-arrow.box__thumb-arrow_direction_right
+{
+    box-shadow: -7px 0 5px -5px rgba(0,0,0,0.9);
+    right: 0;
+}

@@ -1,0 +1,4 @@
+.album__title-name:after
+{
+    content: " / "
+}

@@ -1,0 +1,25 @@
+.box__thumb-photo
+{
+    display: inline-block;
+    padding: 3px;
+
+    font-size: 0;
+}
+
+.box__thumb-photo:hover
+{
+    border: 3px solid rgba(255,255,255,.7);
+    padding: 0;
+}
+
+.box__thumb-photo.box__thumb-photo_state_active
+{
+    border: 3px solid rgba(50,153,233,.7);
+    padding: 0;
+}
+
+.box__thumb-photo img
+{
+    width: 120px;
+    height: 75px;
+}

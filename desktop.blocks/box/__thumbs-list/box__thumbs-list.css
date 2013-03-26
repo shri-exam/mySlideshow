@@ -1,0 +1,20 @@
+.box__thumbs-list
+{
+    background: rgba(0,0,0,0.5);
+    height: 0;
+
+    padding: 7px 32px 0;
+    margin-bottom: -20px;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    position: relative;
+
+    white-space: nowrap;
+
+    -webkit-transition: .5s;
+       -moz-transition: .5s;
+         -o-transition: .5s;
+            transition: .5s;
+}

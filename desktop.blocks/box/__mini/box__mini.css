@@ -1,0 +1,25 @@
+.box__mini
+{
+    width: 65px;
+    height: 65px;
+
+    margin: 3px 6px;
+    display: inline-block;
+
+    cursor: pointer;
+
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.box__mini:hover
+{
+    border: 3px solid rgba(255,255,255,.7);
+    margin: 0 3px;
+}
+
+.box__mini.box__mini_state_active
+{
+    border: 3px solid rgba(50,153,233,.7);
+    margin: 0 3px;
+}

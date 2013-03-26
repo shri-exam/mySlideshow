@@ -1,0 +1,83 @@
+.box__control
+{
+    position: absolute;
+    top: 0;
+
+    z-index: 3;
+
+    width: 10%;
+    height: 100%;
+
+    cursor: pointer;
+
+    -webkit-transition: .3s;
+       -moz-transition: .3s;
+         -o-transition: .3s;
+            transition: .3s;
+
+    visibility: hidden;
+    opacity: 0;
+}
+
+.page:hover .box__control
+{
+    visibility: visible;
+    opacity: 1;
+}
+
+.box__control:hover
+{
+    background: rgba(0,0,0,0.1);
+}
+
+.box__control_direction_left
+{
+    left: 0;
+}
+
+.box__control_direction_left.box__control:after
+{
+    left: 35%;
+}
+
+.box__control_direction_right
+{
+    right: 0;
+}
+
+.box__control_direction_right.box__control:after
+{
+    right: 35%;
+    background-position: 0 -137px;
+}
+
+.box__control:after
+{
+    background: url(../box.gif) 0 -92px no-repeat;
+
+    position: absolute;
+    top: 50%;
+
+    margin-top: -25px;
+
+    content: "";
+
+    width: 30px;
+    height: 35px;
+
+    opacity: .3;
+
+    -webkit-transition: .3s;
+       -moz-transition: .3s;
+         -o-transition: .3s;
+            transition: .3s;
+
+    font-size: 24px;
+    color: #fff;
+}
+
+.box__control:hover.box__control:after
+{
+    opacity: 1;
+    font-size: 36px;
+}
