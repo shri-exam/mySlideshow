@@ -6,7 +6,7 @@ $(function() {
         dfdFullPhoto = $.Deferred(),
         album = $('.album'),
         scrollBar = $('.box__thumbs-list'),
-        speed = 400,
+        speed = 300,
         scrollLength = 0,
         photoThumb = $('.box__mini'),
         loader = $('.loading'),
@@ -164,7 +164,7 @@ function slider(param) {
                     photoWrap.css('height', $(window).height());
                     photoBig.css({
                         'margin-top': photoWrap.height()/2 - photoBig.height()/2,
-                        'right': photoWrap.width()/2 - photoBig.width()/2
+                        'left': photoWrap.width()/2 - photoBig.width()/2
                         });
                 });
             }, speed);
