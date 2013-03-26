@@ -19,7 +19,7 @@
     opacity: 0;
 }
 
-.page:hover .box__control
+.b-page:hover .box__control
 {
     visibility: visible;
     opacity: 1;

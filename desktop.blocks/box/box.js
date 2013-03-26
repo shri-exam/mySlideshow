@@ -90,9 +90,13 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
         $(this).addClass('box__mini_state_active');
     });
 
-        $('.box__thumb-arrow_direction_right').click(function() {
-           scrollLength+=100;
-           scrollBar.animate({'scrollLeft': '+'+scrollLength}, speed);
+        $('.box__thumb-arrow').click(function() {
+            if( $(this).hasClass('box__thumb-arrow_direction_right') ) {
+                scrollLength = scrollLength + 100;
+            } else {
+                scrollLength = scrollLength - 100;
+            }
+                scrollBar.animate({'scrollLeft': '+'+scrollLength}, speed);
         });
     });
 });
