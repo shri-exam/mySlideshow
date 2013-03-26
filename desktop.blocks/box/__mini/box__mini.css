@@ -10,12 +10,58 @@
 
     background-position: 50% 50%;
     background-repeat: no-repeat;
+
+    vertical-align: top;
+    overflow: hidden;
+
+    position: relative;
 }
 
 .box__mini:hover
 {
     border: 3px solid rgba(255,255,255,.7);
     margin: 0 3px;
+}
+
+.box__mini:hover.box__mini:before
+{
+    visibility: visible;
+    opacity: 1;
+    height: 55px;
+}
+
+.box__mini:before
+{
+    content: attr(title);
+
+    margin-top: 25px;
+    padding: 5px 0;
+
+    max-height: 55px;
+    width: 100%;
+    height: 0;
+
+    visibility: hidden;
+    opacity: 0;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 0 1px 0 #000;
+    text-overflow: ellipsis;
+    line-height: 1;
+    font-size: 11px;
+
+    white-space: normal;
+
+    background: rgba(0,0,0,0.5);
+
+    -webkit-transition: .4s;
+       -moz-transition: .4s;
+         -o-transition: .4s;
+            transition: .4s;
 }
 
 .box__mini.box__mini_state_active

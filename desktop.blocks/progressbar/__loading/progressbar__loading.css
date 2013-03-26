@@ -1,0 +1,30 @@
+.progressbar__loading
+{
+    display: inline-block;
+    height: 100%;
+
+    color: rgba(255, 255, 255, 0.7);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.7;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+       -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+
+    -webkit-transition: width .4s ease-in-out;
+       -moz-transition: width .4s ease-in-out;
+        -ms-transition: width .4s ease-in-out;
+         -o-transition: width .4s ease-in-out;
+            transition: width .4s ease-in-out;
+
+    width: 100%;
+}

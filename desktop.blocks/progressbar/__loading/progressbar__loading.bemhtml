@@ -1,0 +1,4 @@
+block progressbar,
+    elem loading {
+        tag: 'span'
+}

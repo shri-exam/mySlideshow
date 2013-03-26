@@ -32,6 +32,11 @@
                     ]
                 },
                 {
+                    block: 'progressbar',
+                    mods: { theme: 'blue', type: 'stripes' },
+                    content: { elem: 'loading', content: 'Загружаю фотки ..' }
+                },
+                {
                     block: 'box',
                     content: [
                         {
@@ -47,6 +52,9 @@
                                         {
                                             elem: 'photo-wrapper',
                                             content: [
+                                                {
+                                                    block: 'loading'
+                                                },
                                                 {
                                                     elem: 'photo-item',
                                                     content: { tag: 'img' }
