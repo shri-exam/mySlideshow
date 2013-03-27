@@ -57,8 +57,8 @@
                                                     block: 'loading'
                                                 },
                                                 {
-                                                    elem: 'photo-item',
-                                                    content: { tag: 'img' }
+                                                    elem: 'photo-item'
+                                                    // content: { tag: 'img' }
                                                 }
                                             ]
                                         }
