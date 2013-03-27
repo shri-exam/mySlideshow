@@ -16,7 +16,6 @@
             content: [
                 {
                     block: 'album',
-                    attrs: { id: 'container' },
                     mods: { visibility: 'hidden' },
                     content: [
                         {
@@ -26,12 +25,19 @@
                                     elem: 'title-name'
                                 },
                                 {
-                                    elem: 'count-photos',
-                                    attrs: { id: 'delta' }
+                                    elem: 'current-photo',
+                                    content: '0'
+                                },
+                                {
+                                    elem: 'count-photos'
                                 }
                             ]
                         }
                     ]
+                },
+                {
+                    block: 'autoplay',
+                    content: 'Автопроигрывание'
                 },
                 {
                     block: 'progressbar',

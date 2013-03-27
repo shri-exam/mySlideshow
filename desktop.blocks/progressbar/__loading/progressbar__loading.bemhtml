@@ -1,5 +1,5 @@
 block progressbar,
     elem loading {
         tag: 'span',
-        content: 'Загружаю фотки ..'
+        content: 'Загружаю фотки. Секундочку ..'
 }

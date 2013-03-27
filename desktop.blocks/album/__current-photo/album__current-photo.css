@@ -1,0 +1,10 @@
+.album__current-photo
+{
+    display: inline-block;
+}
+
+.album__current-photo:after
+{
+    content: " из";
+    font-weight: 400;
+}

@@ -1,0 +1,4 @@
+block album,
+    elem current-photo {
+        tag: 'b'
+}
