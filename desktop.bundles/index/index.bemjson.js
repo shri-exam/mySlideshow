@@ -7,6 +7,7 @@
         { elem: 'css', url: '_index', ie: true },
         { block: 'i-jquery', elem: 'core' },
         { elem: 'js', url: '_index.js' },
+        { elem: 'js', url: 'http://webext.ru/wp-content/uploads/2012/03/jquery.mousewheel-3.0.4.js' },
         { elem: 'meta', attrs: { name: 'description', content: '' }},
         { elem: 'meta', attrs: { name: 'keywords', content: '' }}
     ],

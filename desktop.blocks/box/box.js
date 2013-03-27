@@ -32,10 +32,18 @@ $(function() {
         }, 1000);
     });
 
+    function disableArrow() {
+        if ( $('.box__mini_state_active').index() == 0 ) {
+            $('.box__control_direction_left').hide();
+        } else {
+            $('.box__control_direction_left').show();
+        }
+    }
+
     photoBig.load(function() {
         alignPhoto(photoBig);
         $('.box__mini').eq(0).addClass('box__mini_state_active');
-
+        disableArrow();
         return dfdFullPhoto.resolve();
     });
 
@@ -46,6 +54,12 @@ $(function() {
     $.when(dfdTitle).done(function(){
         $('.album').removeClass('album_visibility_hidden');
     });
+
+    // function disableArrow () {
+    //     if ( $('.box__mini_state_active').index(0)) {
+    //         $('.box__control_direction_left').hide();
+    //     }
+    // }
 
 $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?',function(data){
 
@@ -115,7 +129,7 @@ function slider(param) {
                             });
                     }, 500);
                 });
-
+            disableArrow();
             $(window).resize(function() {
                 photoBig = $('.box__photo-item img');
                 photoWrap.css('height', $(window).height());
@@ -180,7 +194,7 @@ function slider(param) {
                             });
                     }, 500);
                 });
-
+                disableArrow();
                 $(window).resize(function() {
                     photoBig = $('.box__photo-item img');
                     photoWrap.css('height', $(window).height());
@@ -190,10 +204,14 @@ function slider(param) {
                         });
                 });
             }, speed);
-
     });
-
 });
+
+
+    $('.box__thumbs-list').mousewheel(function(event, delta) {
+        this.scrollLeft -= (delta * 100);
+        event.preventDefault();
+    });
 
     $('.box__thumb-arrow').bind('mousedown', function(){
         ($(this).hasClass('box__thumb-arrow_direction_right')) ?
