@@ -13,7 +13,8 @@ $(function() {
         activePhoto = $('.stateActive'),
         progressbar = $('.progressbar__loading'),
         counterPhotos = $('.album__current-photo'),
-        autoplay = $('.autoplay');
+        autoplay = $('.autoplay'),
+        setActive = 0;
         $('.progressbar').fadeIn(800);
 
     function alignPhoto(param) {
@@ -59,6 +60,11 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
         $('.album').removeClass('album_visibility_hidden');
     });
 
+    var itemActive = localStorage.getItem('active');
+    if( itemActive == null ) { itemActive = 0; }
+
+    counterPhotos.text(Number(itemActive) + 1);
+
     (function getFullPhotos() {
         for (var i = 0; i < data.entries.length; i++) {
             $('<img>')
@@ -68,7 +74,7 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
                 })
                 .appendTo('.box__photo-item');
         }
-        photoBig = $('.box__photo-item img').eq(0);
+        photoBig = $('.box__photo-item #'+itemActive);
         photoBig.load(function() {
                 $(this).fadeIn(600).addClass('stateActive');
                  alignPhoto($(this));
@@ -93,7 +99,8 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
                 .appendTo('.box__thumbs-list');
         }
         photoThumb = $('.box__mini');
-        photoThumb.eq(0).addClass('box__mini_state_active');
+
+        photoThumb.eq(itemActive).addClass('box__mini_state_active');
 
         return photoThumb;
     })();
@@ -114,7 +121,11 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
             var _thisHash = boxControls ?
                 $('.box__mini_state_active').next().attr('hash') :
                 param.attr('hash');
-                counterPhotos.text(Number(_thisHash) + 1);
+
+                setActive = Number(_thisHash);
+                localStorage.setItem('active', setActive);
+
+                counterPhotos.text(setActive + 1);
 
             boxControls && $('.box__mini_state_active')
                             .removeClass('box__mini_state_active')
@@ -157,6 +168,8 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
             }
         }
         disableArrow();
+
+        return setActive;
     }
 
     photoThumb.bind('click', function(){
@@ -177,7 +190,11 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
 
         var photoBig = $('.box__photo-item img'),
             _thisHash = $('.box__mini_state_active').prev().attr('hash');
-            counterPhotos.text(_thisHash);
+
+            setActive = Number(_thisHash);
+            localStorage.setItem('active', setActive);
+
+            counterPhotos.text(setActive + 1);
 
             $('.box__mini_state_active')
                 .removeClass('box__mini_state_active')

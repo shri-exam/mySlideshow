@@ -25,8 +25,7 @@
                                     elem: 'title-name'
                                 },
                                 {
-                                    elem: 'current-photo',
-                                    content: '1'
+                                    elem: 'current-photo'
                                 },
                                 {
                                     elem: 'count-photos'
