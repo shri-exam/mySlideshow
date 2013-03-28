@@ -263,20 +263,6 @@ function getAllPhotos(url) {
             $('.box__control_direction_right').trigger('click');
         });
 
-        // $(window).keydown(function() {
-        //     if (($('.box__mini_state_active').index() === 0) || ($('.box__mini_state_active').index() === data.entries.length - 1)) {
-        //         return false;
-        //     }
-        //   switch (event.keyCode) {
-        //     case 0x25:
-        //             $('.box__control_direction_left').trigger('click');
-        //             break;
-        //     case 0x27:
-        //             $('.box__control_direction_right').trigger('click');
-        //             break;
-        //   }
-        // });
-
         autoplay.bind('click', function(){
             $(this).toggleClass('autoplay_checked_yes');
 
