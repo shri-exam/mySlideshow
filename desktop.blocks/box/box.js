@@ -212,6 +212,9 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
     });
 
     $('.box__photo-item img').bind('click', function(){
+        if ($('.box__mini_state_active').index() === data.entries.length - 1) {
+            return false;
+        }
         $('.box__control_direction_right').trigger('click');
     });
 
@@ -220,8 +223,12 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
 
         if ($(this).hasClass('autoplay_checked_yes')) {
             (function autoPlay(){
+                if ($('.box__mini_state_active').index() === data.entries.length - 1) {
+                    autoplay.removeClass('autoplay_checked_yes');
+                    return false;
+                }
                 $('.box__control_direction_right').trigger('click',[true]);
-                timeOut = setTimeout(autoPlay, 3000);
+                timeOut = setTimeout(autoPlay, 2000);
             })();
         } else {
             clearTimeout(timeOut);
