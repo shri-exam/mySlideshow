@@ -106,15 +106,15 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
             if(boxControls) {
             var activeF = $('.stateActive');
                 activeF.css({
-                            'right': '',
-                            'left':  photoWrap.width()/2 - activeF.width()/2
-                        });
+                        'right': '',
+                        'left':  photoWrap.width()/2 - activeF.width()/2
+                    });
             }
 
             var _thisHash = boxControls ?
                 $('.box__mini_state_active').next().attr('hash') :
                 param.attr('hash');
-                counterPhotos.text(_thisHash);
+                counterPhotos.text(Number(_thisHash) + 1);
 
             boxControls && $('.box__mini_state_active')
                             .removeClass('box__mini_state_active')
@@ -228,7 +228,7 @@ $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?form
                     return false;
                 }
                 $('.box__control_direction_right').trigger('click',[true]);
-                timeOut = setTimeout(autoPlay, 2000);
+                timeOut = setTimeout(autoPlay, 3000);
             })();
         } else {
             clearTimeout(timeOut);

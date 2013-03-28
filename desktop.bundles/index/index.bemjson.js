@@ -26,7 +26,7 @@
                                 },
                                 {
                                     elem: 'current-photo',
-                                    content: '0'
+                                    content: '1'
                                 },
                                 {
                                     elem: 'count-photos'
