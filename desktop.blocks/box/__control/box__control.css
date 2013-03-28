@@ -81,3 +81,8 @@
     opacity: 1;
     font-size: 36px;
 }
+
+.box__control_visibility_hidden
+{
+    display: none;
+}
