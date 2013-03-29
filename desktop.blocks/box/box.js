@@ -38,87 +38,14 @@ $(function() {
         scrollBar.animate({'scrollLeft': '+' + scrollLength}, speed);
     }
 
-function getAllPhotos(url) {
-    $.getJSON(url, function (data){
-
-        function disableArrow() {
-            if ( $('.box__mini_state_active').index() === 0 ) {
-                $('.box__control_direction_left').addClass('box__control_visibility_hidden');
-            }
-            else if ( $('.box__mini_state_active').index() === data.entries.length - 1 ) {
-                $('.box__control_direction_right').addClass('box__control_visibility_hidden');
-            }
-            else {
-                $('.box__control_direction_left').removeClass('box__control_visibility_hidden');
-                $('.box__control_direction_right').removeClass('box__control_visibility_hidden');
-            }
-        }
-
-        (function getTitle() {
-            $('.album__title-name').text(data.title);
-            $('.album__count-photos').text(' ' + data.entries.length);
-
-            return dfdTitle.resolve();
-        })();
-
-        $.when(dfdTitle).done(function(){
-            $('.album').removeClass('album_visibility_hidden');
-        });
-
-        var itemActive = localStorage.getItem('active');
-        if( itemActive == null ) { itemActive = 0; }
-
-        counterPhotos.text(Number(itemActive) + 1);
-
-        (function getThumbPhotos() {
-            for (var i = 0; i < data.entries.length; i++) {
-                $('<div class="box__mini">')
-                    .attr({
-                        hash: i,
-                        title: data.entries[i].title
-                    })
-                    .css('background-image', 'url(' +data.entries[i].img.XS.href+ ')')
-                    .appendTo('.box__thumbs-list');
-            }
-            photoThumb = $('.box__mini');
-
-            photoThumb.eq(itemActive).addClass('box__mini_state_active');
-
-            return photoThumb;
-        })();
-
-        (function getFullPhotos() {
-            for (var i = 0; i < data.entries.length; i++) {
-                $('<img>')
-                    .attr({
-                        id: i,
-                        src: data.entries[i].img.XL.href
-                    })
-                    .appendTo('.box__photo-item');
-            }
-            photoBig = $('.box__photo-item #'+itemActive);
-            photoBig.load(function() {
-                    $(this).fadeIn(600).addClass('full-photo_state_active');
-                     alignPhoto($(this));
-
-                     disableArrow();
-                     autoplay.fadeIn(400);
-                });
-            $(window).resize(function() {
-                alignPhoto(photoBig);
-            });
-
-        })();
-
-        function slider(param) {
+    function slider(param) {
             var photoBig = $('.box__photo-item img'),
-                boxControls = (param.hasClass('box__control_direction_right')),
-                controlRight = $('.box__control_direction_right');
+                boxControlRight = (param.hasClass('box__control_direction_right'));
 
-                if(!boxControls) {
+                if(!boxControlRight) {
                     $('.box__mini').addClass('box__mini_disabled_yes');
                 }
-                boxControls && controlRight.addClass('box__control_disabled_yes');
+                boxControlRight && param.addClass('box__control_disabled_yes');
 
                 var activeF = $('.full-photo_state_active');
                     activeF.css({
@@ -126,7 +53,7 @@ function getAllPhotos(url) {
                             'left':  photoWrap.width()/2 - activeF.width()/2
                         });
 
-                var _thisHash = boxControls ?
+                var _thisHash = boxControlRight ?
                     $('.box__mini_state_active').next().attr('hash') :
                     param.attr('hash');
 
@@ -135,7 +62,7 @@ function getAllPhotos(url) {
 
                     counterPhotos.text(setActive + 1);
 
-                boxControls && $('.box__mini_state_active')
+                boxControlRight && $('.box__mini_state_active')
                                 .removeClass('box__mini_state_active')
                                 .next()
                                 .addClass('box__mini_state_active');
@@ -169,7 +96,7 @@ function getAllPhotos(url) {
                     alignPhoto(activePhoto);
                 });
 
-                if(!boxControls) {
+                if(!boxControlRight) {
                     photoThumb.on('click', function(){ return false; });
                     photoThumb.removeClass('box__mini_state_active');
                     param.addClass('box__mini_state_active');
@@ -177,7 +104,7 @@ function getAllPhotos(url) {
             }
 
             setTimeout(function() {
-                boxControls ? param.removeClass('box__control_disabled_yes') :
+                boxControlRight ? param.removeClass('box__control_disabled_yes') :
                                $('.box__mini').removeClass('box__mini_disabled_yes');
             }, speed);
             disableArrow();
@@ -185,13 +112,19 @@ function getAllPhotos(url) {
             return setActive;
         }
 
-        photoThumb.on('click', function(){
-            if(!photoThumb.hasClass('box__mini_disabled_yes')) {
-                slider($(this));
+        function disableArrow() {
+            if ( $('.box__mini_state_active').index() === 0 ) {
+                $('.box__control_direction_left').addClass('box__control_visibility_hidden');
             }
-        });
+            else if ( $('.box__mini_state_active').index() === 99 ) {
+                $('.box__control_direction_right').addClass('box__control_visibility_hidden');
+            }
+            else {
+                $('.box__control_direction_left, .box__control_direction_right').removeClass('box__control_visibility_hidden');
+            }
+        }
 
-        $('.box__control_direction_right').on('click', function(){
+    $('.box__control_direction_right').on('click', function(){
             var controlRight = $(this);
             if(!controlRight.hasClass('box__control_disabled_yes')) {
                 slider($(this));
@@ -250,6 +183,72 @@ function getAllPhotos(url) {
                 controlLeft.removeClass('box__control_disabled_yes');
             }, speed);
                 disableArrow();
+            }
+        });
+
+function getAllPhotos(url) {
+    $.getJSON(url, function (data){
+
+
+        (function getTitle() {
+            $('.album__title-name').text(data.title);
+            $('.album__count-photos').text(' ' + data.entries.length);
+
+            return dfdTitle.resolve();
+        })();
+
+        $.when(dfdTitle).done(function(){
+            $('.album').removeClass('album_visibility_hidden');
+        });
+
+        var itemActive = localStorage.getItem('active');
+        if( itemActive == null ) { itemActive = 0; }
+
+        counterPhotos.text(Number(itemActive) + 1);
+
+        (function getThumbPhotos() {
+            for (var i = 0; i < data.entries.length; i++) {
+                $('<div class="box__mini">')
+                    .attr({
+                        hash: i,
+                        title: data.entries[i].title
+                    })
+                    .css('background-image', 'url(' +data.entries[i].img.XS.href+ ')')
+                    .appendTo('.box__thumbs-list');
+            }
+            photoThumb = $('.box__mini');
+
+            photoThumb.eq(itemActive).addClass('box__mini_state_active');
+
+            return photoThumb;
+        })();
+
+        (function getFullPhotos() {
+            for (var i = 0; i < data.entries.length; i++) {
+                $('<img>')
+                    .attr({
+                        id: i,
+                        src: data.entries[i].img.XL.href
+                    })
+                    .appendTo('.box__photo-item');
+            }
+            photoBig = $('.box__photo-item #'+itemActive);
+            photoBig.load(function() {
+                    $(this).fadeIn(600).addClass('full-photo_state_active');
+                     alignPhoto($(this));
+
+                     disableArrow();
+                     autoplay.fadeIn(400);
+                });
+            $(window).resize(function() {
+                alignPhoto(photoBig);
+            });
+
+        })();
+
+        photoThumb.on('click', function(){
+            if(!photoThumb.hasClass('box__mini_disabled_yes')) {
+                slider($(this));
             }
         });
 
