@@ -176,15 +176,10 @@ function getAllPhotos(url) {
                 }
             }
 
-            if(boxControls) {
-                setTimeout(function() {
-                    controlRight.removeClass('box__control_disabled_yes');
-                }, speed);
-            } else {
-                setTimeout(function() {
-                    $('.box__mini').removeClass('box__mini_disabled_yes');
-                }, speed);
-            }
+            setTimeout(function() {
+                boxControls ? param.removeClass('box__control_disabled_yes') :
+                               $('.box__mini').removeClass('box__mini_disabled_yes');
+            }, speed);
             disableArrow();
 
             return setActive;
