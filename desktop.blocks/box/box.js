@@ -32,6 +32,11 @@ $(function() {
         }, 1000);
     });
 
+    function scrollItems(elem, length) {
+        ($(elem).hasClass('box__thumb-arrow_direction_right')) ?
+        scrollLength += length : scrollLength -= length;
+        scrollBar.animate({'scrollLeft': '+' + scrollLength}, speed);
+    }
 
 function getAllPhotos(url) {
     $.getJSON(url, function (data){
@@ -251,7 +256,6 @@ function getAllPhotos(url) {
             setTimeout(function() {
                 controlLeft.removeClass('box__control_disabled_yes');
             }, speed);
-
                 disableArrow();
             }
         });
@@ -285,14 +289,12 @@ function getAllPhotos(url) {
 
 getAllPhotos('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?');
 
-    $('.box__thumbs-list').mousewheel(function(event, delta) {
+    $('.box__thumbs-list').mousewheel(function(e, delta) {
         this.scrollLeft -= (delta * 100);
-        event.preventDefault();
+        e.preventDefault();
     });
 
-    $('.box__thumb-arrow').bind('mousedown', function(){
-        ($(this).hasClass('box__thumb-arrow_direction_right')) ?
-        scrollLength += 150 : scrollLength -= 150;
-        scrollBar.animate({'scrollLeft': '+' + scrollLength}, speed);
+    $('.box__thumb-arrow').bind('click', function(){
+        scrollItems(this, 154);
     });
 });
