@@ -172,7 +172,7 @@ function getAllPhotos(url) {
                 });
 
                 if(!boxControls) {
-                    photoThumb.bind('click', function(){ return false; });
+                    photoThumb.on('click', function(){ return false; });
                     photoThumb.removeClass('box__mini_state_active');
                     param.addClass('box__mini_state_active');
                 }
@@ -192,20 +192,20 @@ function getAllPhotos(url) {
             return setActive;
         }
 
-        photoThumb.bind('click', function(){
+        photoThumb.on('click', function(){
             if(!photoThumb.hasClass('box__mini_disabled_yes')) {
                 slider($(this));
             }
         });
 
-        $('.box__control_direction_right').bind('click', function(){
+        $('.box__control_direction_right').on('click', function(){
             var controlRight = $(this);
             if(!controlRight.hasClass('box__control_disabled_yes')) {
                 slider($(this));
             }
         });
 
-        $('.box__control_direction_left').bind('click', function(){
+        $('.box__control_direction_left').on('click', function(){
             var controlLeft = $(this);
         if(!controlLeft.hasClass('box__control_disabled_yes')) {
 
@@ -260,14 +260,14 @@ function getAllPhotos(url) {
             }
         });
 
-        $('.box__photo-item img').bind('click', function(){
+        $('.box__photo-item img').on('click', function(){
             if ($('.box__mini_state_active').index() === data.entries.length - 1) {
                 return false;
             }
             $('.box__control_direction_right').trigger('click');
         });
 
-        autoplay.bind('click', function(){
+        autoplay.on('click', function(){
             $(this).toggleClass('autoplay_checked_yes');
 
             if ($(this).hasClass('autoplay_checked_yes')) {
@@ -289,12 +289,12 @@ function getAllPhotos(url) {
 
 getAllPhotos('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?');
 
-    $('.box__thumbs-list').mousewheel(function(e, delta) {
+    $('.box__thumbs-list').on('mousewheel', function(e, delta) {
         this.scrollLeft -= (delta * 100);
         e.preventDefault();
     });
 
-    $('.box__thumb-arrow').bind('click', function(){
+    $('.box__thumb-arrow').on('click', function(){
         scrollItems(this, 154);
     });
 });
