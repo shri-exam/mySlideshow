@@ -9,7 +9,7 @@ $(function() {
         scrollLength = 0,
         photoThumb = $('.box__mini'),
         loader = $('.loading'),
-        activePhoto = $('.stateActive'),
+        activePhoto = $('.full-photo_state_active'),
         progressbar = $('.progressbar__loading'),
         counterPhotos = $('.album__current-photo'),
         autoplay = $('.autoplay'),
@@ -98,7 +98,7 @@ function getAllPhotos(url) {
             }
             photoBig = $('.box__photo-item #'+itemActive);
             photoBig.load(function() {
-                    $(this).fadeIn(600).addClass('stateActive');
+                    $(this).fadeIn(600).addClass('full-photo_state_active');
                      alignPhoto($(this));
 
                      disableArrow();
@@ -118,15 +118,13 @@ function getAllPhotos(url) {
                 if(!boxControls) {
                     $('.box__mini').addClass('box__mini_disabled_yes');
                 }
+                boxControls && controlRight.addClass('box__control_disabled_yes');
 
-                if(boxControls) {
-                controlRight.addClass('box__control_disabled_yes');
-                var activeF = $('.stateActive');
+                var activeF = $('.full-photo_state_active');
                     activeF.css({
                             'right': '',
                             'left':  photoWrap.width()/2 - activeF.width()/2
                         });
-                }
 
                 var _thisHash = boxControls ?
                     $('.box__mini_state_active').next().attr('hash') :
@@ -142,8 +140,8 @@ function getAllPhotos(url) {
                                 .next()
                                 .addClass('box__mini_state_active');
 
-            if ($('.stateActive').attr('id') !== _thisHash) {
-                var photoBigActive = $('.stateActive');
+            if ($('.full-photo_state_active').attr('id') !== _thisHash) {
+                var photoBigActive = $('.full-photo_state_active');
 
                 photoBigActive.animate({'left': '-' + photoBigActive.width()}, speed);
                     setTimeout(function() {
@@ -152,7 +150,7 @@ function getAllPhotos(url) {
 
                     activePhoto = $('.box__photo-item ').find('#'+_thisHash);
                     activePhoto
-                        .addClass('stateActive')
+                        .addClass('full-photo_state_active')
                         .css({
                             'margin-top': photoWrap.height()/2 - activePhoto.height()/2,
                             'right': '-'+activePhoto.width()+'px'
@@ -210,7 +208,7 @@ function getAllPhotos(url) {
         if(!controlLeft.hasClass('box__control_disabled_yes')) {
 
             controlLeft.addClass('box__control_disabled_yes');
-            var activeF = $('.stateActive');
+            var activeF = $('.full-photo_state_active');
             activeF.css({
                         'left': '',
                         'right':  photoWrap.width()/2 - activeF.width()/2
@@ -229,8 +227,8 @@ function getAllPhotos(url) {
                     .prev()
                     .addClass('box__mini_state_active');
 
-            if ($('.stateActive').attr('id') !== _thisHash) {
-                var photoBigActive = $('.stateActive');
+            if ($('.full-photo_state_active').attr('id') !== _thisHash) {
+                var photoBigActive = $('.full-photo_state_active');
 
                 photoBigActive.animate({'right': '-' + photoBigActive.width()}, speed);
                 setTimeout(function() {
@@ -238,7 +236,7 @@ function getAllPhotos(url) {
                 }, speed + 50);
                 activePhoto = $('.box__photo-item ').find('#'+_thisHash);
                 activePhoto
-                    .addClass('stateActive')
+                    .addClass('full-photo_state_active')
                     .css({
                         'margin-top': photoWrap.height()/2 - activePhoto.height()/2,
                         'left': '-'+activePhoto.width()+'px'
