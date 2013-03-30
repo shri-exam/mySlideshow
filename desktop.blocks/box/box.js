@@ -2,19 +2,18 @@ $(function() {
 
     var photoWrap = $('.box__photo-wrapper'),
         photoBig = $('.box__photo-item img'),
+        activePhoto = $('.full-photo_state_active'),
+        photoThumb = $('.box__mini'),
         dfdTitle = $.Deferred(),
         album = $('.album'),
         scrollBar = $('.box__thumbs-list'),
-        speed = 450,
-        scrollLength = 0,
-        photoThumb = $('.box__mini'),
-        loader = $('.loading'),
-        activePhoto = $('.full-photo_state_active'),
         progressbar = $('.progressbar__loading'),
+        loading = $('.loading'),
         counterPhotos = $('.album__current-photo'),
         autoplay = $('.autoplay'),
-        setActive = 0;
-        $('.progressbar').fadeIn(800);
+        setActive = 0,
+        speed = 450,
+        scrollLength = 0;
 
     function alignPhoto(param) {
         photoWrap.css('height', $(window).height());
@@ -28,8 +27,8 @@ $(function() {
         progressbar.text('Всё готово!');
         setTimeout(function () {
            $('.progressbar').fadeOut(800);
-           loader.hide();
-        }, 1000);
+           loading.addClass('loading_visibility_hidden');
+        }, 800);
     });
 
     function scrollItems(elem, length) {
@@ -39,18 +38,17 @@ $(function() {
     }
 
     function slider(param) {
-            var photoBig = $('.box__photo-item img'),
-                boxControlRight = (param.hasClass('box__control_direction_right'));
+            var boxControlRight = (param.hasClass('box__control_direction_right')),
+                activeFullImg = $('.full-photo_state_active');
 
                 if(!boxControlRight) {
                     $('.box__mini').addClass('box__mini_disabled_yes');
                 }
                 boxControlRight && param.addClass('box__control_disabled_yes');
 
-                var activeF = $('.full-photo_state_active');
-                    activeF.css({
+                    activeFullImg.css({
                             'right': '',
-                            'left':  photoWrap.width()/2 - activeF.width()/2
+                            'left':  photoWrap.width()/2 - activeFullImg.width()/2
                         });
 
                 var _thisHash = boxControlRight ?
@@ -67,12 +65,12 @@ $(function() {
                                 .next()
                                 .addClass('box__mini_state_active');
 
-            if ($('.full-photo_state_active').attr('id') !== _thisHash) {
-                var photoBigActive = $('.full-photo_state_active');
+            if (activeFullImg.attr('id') !== _thisHash) {
+                    activeFullImg = $('.full-photo_state_active');
 
-                photoBigActive.animate({'left': '-' + photoBigActive.width()}, speed);
+                activeFullImg.animate({'left': '-' + activeFullImg.width()}, speed);
                     setTimeout(function() {
-                        photoBigActive.removeAttr('style').removeAttr('class');
+                        activeFullImg.removeAttr('style').removeAttr('class');
                     }, speed + 50);
 
                     activePhoto = $('.box__photo-item ').find('#'+_thisHash);
@@ -97,7 +95,6 @@ $(function() {
                 });
 
                 if(!boxControlRight) {
-                    photoThumb.on('click', function(){ return false; });
                     photoThumb.removeClass('box__mini_state_active');
                     param.addClass('box__mini_state_active');
                 }
@@ -105,11 +102,9 @@ $(function() {
 
             setTimeout(function() {
                 boxControlRight ? param.removeClass('box__control_disabled_yes') :
-                               $('.box__mini').removeClass('box__mini_disabled_yes');
+                               photoThumb.removeClass('box__mini_disabled_yes');
             }, speed);
             disableArrow();
-
-            return setActive;
         }
 
         function disableArrow() {
@@ -124,7 +119,7 @@ $(function() {
             }
         }
 
-    $('.box__control_direction_right').on('click', function(){
+        $('.box__control_direction_right').on('click', function(){
             var controlRight = $(this);
             if(!controlRight.hasClass('box__control_disabled_yes')) {
                 slider($(this));
@@ -132,18 +127,18 @@ $(function() {
         });
 
         $('.box__control_direction_left').on('click', function(){
-            var controlLeft = $(this);
+            var controlLeft = $(this),
+                activeFullImg = $('.full-photo_state_active');
+
         if(!controlLeft.hasClass('box__control_disabled_yes')) {
+                controlLeft.addClass('box__control_disabled_yes');
 
-            controlLeft.addClass('box__control_disabled_yes');
-            var activeF = $('.full-photo_state_active');
-            activeF.css({
-                        'left': '',
-                        'right':  photoWrap.width()/2 - activeF.width()/2
-                    });
+                activeFullImg.css({
+                            'left': '',
+                            'right':  photoWrap.width()/2 - activeFullImg.width()/2
+                        });
 
-            var photoBig = $('.box__photo-item img'),
-                _thisHash = $('.box__mini_state_active').prev().attr('hash');
+            var _thisHash = $('.box__mini_state_active').prev().attr('hash');
 
                 setActive = Number(_thisHash);
                 localStorage.setItem('active', setActive);
@@ -156,39 +151,39 @@ $(function() {
                     .addClass('box__mini_state_active');
 
             if ($('.full-photo_state_active').attr('id') !== _thisHash) {
-                var photoBigActive = $('.full-photo_state_active');
+                    activeFullImg = $('.full-photo_state_active');
 
-                photoBigActive.animate({'right': '-' + photoBigActive.width()}, speed);
-                setTimeout(function() {
-                    photoBigActive.removeAttr('style').removeAttr('class');
-                }, speed + 50);
-                activePhoto = $('.box__photo-item ').find('#'+_thisHash);
-                activePhoto
-                    .addClass('full-photo_state_active')
-                    .css({
-                        'margin-top': photoWrap.height()/2 - activePhoto.height()/2,
-                        'left': '-'+activePhoto.width()+'px'
-                    })
-                    .show()
-                    .animate({'left': photoWrap.width()/2 - activePhoto.width()/2}, speed);
+                    activeFullImg.animate({'right': '-' + activeFullImg.width()}, speed);
+                    setTimeout(function() {
+                        activeFullImg.removeAttr('style').removeAttr('class');
+                    }, speed + 50);
+
+                    activePhoto = $('.box__photo-item ').find('#'+_thisHash);
+                    activePhoto
+                        .addClass('full-photo_state_active')
+                        .css({
+                            'margin-top': photoWrap.height()/2 - activePhoto.height()/2,
+                            'left': '-'+activePhoto.width()+'px'
+                        })
+                        .show()
+                        .animate({'left': photoWrap.width()/2 - activePhoto.width()/2}, speed);
+
+                    setTimeout(function() {
+                            activePhoto.css({
+                                'left': '',
+                                'right':  photoWrap.width()/2 - activePhoto.width()/2
+                            });
+                    }, speed);
+                }
 
                 setTimeout(function() {
-                        activePhoto.css({
-                            'left': '',
-                            'right':  photoWrap.width()/2 - activePhoto.width()/2
-                        });
+                    controlLeft.removeClass('box__control_disabled_yes');
                 }, speed);
-            }
-            setTimeout(function() {
-                controlLeft.removeClass('box__control_disabled_yes');
-            }, speed);
                 disableArrow();
             }
         });
 
-function getAllPhotos(url) {
-    $.getJSON(url, function (data){
-
+    $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?', function (data){
 
         (function getTitle() {
             $('.album__title-name').text(data.title);
@@ -202,7 +197,7 @@ function getAllPhotos(url) {
         });
 
         var itemActive = localStorage.getItem('active');
-        if( itemActive == null ) { itemActive = 0; }
+        itemActive == null && (itemActive = 0);
 
         counterPhotos.text(Number(itemActive) + 1);
 
@@ -217,10 +212,7 @@ function getAllPhotos(url) {
                     .appendTo('.box__thumbs-list');
             }
             photoThumb = $('.box__mini');
-
             photoThumb.eq(itemActive).addClass('box__mini_state_active');
-
-            return photoThumb;
         })();
 
         (function getFullPhotos() {
@@ -232,16 +224,16 @@ function getAllPhotos(url) {
                     })
                     .appendTo('.box__photo-item');
             }
-            photoBig = $('.box__photo-item #'+itemActive);
-            photoBig.load(function() {
-                    $(this).fadeIn(600).addClass('full-photo_state_active');
-                     alignPhoto($(this));
+            var photoBigActive = $('.box__photo-item #'+itemActive);
+            photoBigActive.load(function() {
+                     $(this).fadeIn(600).addClass('full-photo_state_active');
 
+                     alignPhoto($(this));
                      disableArrow();
                      autoplay.fadeIn(400);
                 });
             $(window).resize(function() {
-                alignPhoto(photoBig);
+                alignPhoto(photoBigActive);
             });
 
         })();
@@ -277,9 +269,6 @@ function getAllPhotos(url) {
         });
 
     });
-}
-
-getAllPhotos('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?');
 
     $('.box__thumbs-list').on('mousewheel', function(e, delta) {
         this.scrollLeft -= (delta * 100);
