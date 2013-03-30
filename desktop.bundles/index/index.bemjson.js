@@ -6,9 +6,7 @@
         { elem: 'css', url: '_index.css', ie: false },
         { elem: 'css', url: '_index', ie: true },
         { block: 'i-jquery', elem: 'core' },
-        { elem: 'js', url: '_index.js' },
-        { elem: 'meta', attrs: { name: 'description', content: '' }},
-        { elem: 'meta', attrs: { name: 'keywords', content: '' }}
+        { elem: 'js', url: '_index.js' }
     ],
     content:[
         {
@@ -21,22 +19,15 @@
                         {
                             elem: 'title',
                             content: [
-                                {
-                                    elem: 'title-name'
-                                },
-                                {
-                                    elem: 'current-photo'
-                                },
-                                {
-                                    elem: 'count-photos'
-                                }
+                                { elem: 'title-name' },
+                                { elem: 'current-photo' },
+                                { elem: 'count-photos' }
                             ]
                         }
                     ]
                 },
                 {
-                    block: 'autoplay',
-                    content: 'Автопроигрывание'
+                    block: 'autoplay'
                 },
                 {
                     block: 'progressbar',
@@ -59,13 +50,8 @@
                                         {
                                             elem: 'photo-wrapper',
                                             content: [
-                                                {
-                                                    block: 'loading'
-                                                },
-                                                {
-                                                    elem: 'photo-item'
-                                                    // content: { tag: 'img' }
-                                                }
+                                                { block: 'loading' },
+                                                { elem: 'photo-item' }
                                             ]
                                         }
                                     ]
@@ -83,17 +69,9 @@
                                     elem: 'inner',
                                     mods: { position: 'bottom' },
                                     content: [
-                                        {
-                                            elem: 'thumb-arrow',
-                                            mods: { direction: 'left' }
-                                        },
-                                        {
-                                            elem: 'thumbs-list'
-                                        },
-                                        {
-                                            elem: 'thumb-arrow',
-                                            mods: { direction: 'right' }
-                                        }
+                                        { elem: 'thumb-arrow', mods: { direction: 'left' } },
+                                        { elem: 'thumbs-list' },
+                                        { elem: 'thumb-arrow', mods: { direction: 'right' } }
                                     ]
                                 }
                             ]
