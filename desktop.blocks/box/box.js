@@ -38,74 +38,74 @@ $(function() {
     }
 
     function slider(param) {
-            var boxControlRight = (param.hasClass('box__control_direction_right')),
-                activeFullImg = $('.full-photo_state_active');
+        var boxControlRight = (param.hasClass('box__control_direction_right')),
+            activeFullImg = $('.full-photo_state_active');
 
-                if(!boxControlRight) {
-                    $('.box__mini').addClass('box__mini_disabled_yes');
-                }
-                boxControlRight && param.addClass('box__control_disabled_yes');
+            if(!boxControlRight) {
+                $('.box__mini').addClass('box__mini_disabled_yes');
+            }
+            boxControlRight && param.addClass('box__control_disabled_yes');
 
-                    activeFullImg.css({
-                            'right': '',
-                            'left':  photoWrap.width()/2 - activeFullImg.width()/2
-                        });
-
-                var _thisHash = boxControlRight ?
-                    $('.box__mini_state_active').next().attr('hash') :
-                    param.attr('hash');
-
-                    setActive = Number(_thisHash);
-                    localStorage.setItem('active', setActive);
-
-                    counterPhotos.text(setActive + 1);
-
-                boxControlRight && $('.box__mini_state_active')
-                                .removeClass('box__mini_state_active')
-                                .next()
-                                .addClass('box__mini_state_active');
-
-            if (activeFullImg.attr('id') !== _thisHash) {
-                    activeFullImg = $('.full-photo_state_active');
-
-                activeFullImg.animate({'left': '-' + activeFullImg.width()}, speed);
-                    setTimeout(function() {
-                        activeFullImg.removeAttr('style').removeAttr('class');
-                    }, speed + 50);
-
-                    activePhoto = $('.box__photo-item ').find('#'+_thisHash);
-                    activePhoto
-                        .addClass('full-photo_state_active')
-                        .css({
-                            'margin-top': photoWrap.height()/2 - activePhoto.height()/2,
-                            'right': '-'+activePhoto.width()+'px'
-                        })
-                        .show()
-                        .animate({'right': photoWrap.width()/2 - activePhoto.width()/2}, speed);
-
-                    setTimeout(function() {
-                            activePhoto.css({
-                                'right': '',
-                                'left':  photoWrap.width()/2 - activePhoto.width()/2
-                            });
-                    }, speed);
-
-                $(window).resize(function(){
-                    alignPhoto(activePhoto);
+            activeFullImg.css({
+                    'right': '',
+                    'left':  photoWrap.width()/2 - activeFullImg.width()/2
                 });
 
-                if(!boxControlRight) {
-                    photoThumb.removeClass('box__mini_state_active');
-                    param.addClass('box__mini_state_active');
-                }
-            }
+            var _thisHash = boxControlRight ?
+                $('.box__mini_state_active').next().attr('hash') :
+                param.attr('hash');
 
-            setTimeout(function() {
-                boxControlRight ? param.removeClass('box__control_disabled_yes') :
-                               photoThumb.removeClass('box__mini_disabled_yes');
-            }, speed);
-            disableArrow();
+                setActive = Number(_thisHash);
+                localStorage.setItem('active', setActive);
+
+                counterPhotos.text(setActive + 1);
+
+            boxControlRight && $('.box__mini_state_active')
+                            .removeClass('box__mini_state_active')
+                            .next()
+                            .addClass('box__mini_state_active');
+
+        if (activeFullImg.attr('id') !== _thisHash) {
+                activeFullImg = $('.full-photo_state_active');
+
+            activeFullImg.animate({'left': '-' + activeFullImg.width()}, speed);
+                setTimeout(function() {
+                    activeFullImg.removeAttr('style').removeAttr('class');
+                }, speed + 50);
+
+                activePhoto = $('.box__photo-item ').find('#'+_thisHash);
+                activePhoto
+                    .addClass('full-photo_state_active')
+                    .css({
+                        'margin-top': photoWrap.height()/2 - activePhoto.height()/2,
+                        'right': '-'+activePhoto.width()+'px'
+                    })
+                    .show()
+                    .animate({'right': photoWrap.width()/2 - activePhoto.width()/2}, speed);
+
+                setTimeout(function() {
+                        activePhoto.css({
+                            'right': '',
+                            'left':  photoWrap.width()/2 - activePhoto.width()/2
+                        });
+                }, speed);
+
+            $(window).resize(function(){
+                alignPhoto(activePhoto);
+            });
+
+            if(!boxControlRight) {
+                photoThumb.removeClass('box__mini_state_active');
+                param.addClass('box__mini_state_active');
+            }
         }
+
+        setTimeout(function() {
+            boxControlRight ? param.removeClass('box__control_disabled_yes') :
+                           photoThumb.removeClass('box__mini_disabled_yes');
+        }, speed);
+        disableArrow();
+    }
 
         function disableArrow() {
             if ( $('.box__mini_state_active').index() === 0 ) {
@@ -152,8 +152,8 @@ $(function() {
 
             if ($('.full-photo_state_active').attr('id') !== _thisHash) {
                     activeFullImg = $('.full-photo_state_active');
-
                     activeFullImg.animate({'right': '-' + activeFullImg.width()}, speed);
+
                     setTimeout(function() {
                         activeFullImg.removeAttr('style').removeAttr('class');
                     }, speed + 50);
@@ -230,12 +230,11 @@ $(function() {
 
                      alignPhoto($(this));
                      disableArrow();
-                     autoplay.fadeIn(400);
+                     autoplay.fadeIn(600);
                 });
             $(window).resize(function() {
                 alignPhoto(photoBigActive);
             });
-
         })();
 
         photoThumb.on('click', function(){
@@ -253,7 +252,6 @@ $(function() {
 
         autoplay.on('click', function(){
             $(this).toggleClass('autoplay_checked_yes');
-
             if ($(this).hasClass('autoplay_checked_yes')) {
                 (function autoPlay(){
                     if ($('.box__mini_state_active').index() === data.entries.length - 1) {
