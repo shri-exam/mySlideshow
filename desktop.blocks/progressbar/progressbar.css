@@ -8,6 +8,8 @@
     top: 20px;
     right: 20px;
 
+    z-index: 3;
+
     padding: 5px;
 
     -webkit-border-radius: 5px;
@@ -18,7 +20,7 @@
        -moz-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
             box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
 
-    display: block;
+    opacity: .85;
 }
 
 .progressbar_theme_blue .progressbar__loading
@@ -26,7 +28,7 @@
     background: #2b4f71;
 }
 
-.progressbar_type_stripes .progressbar__loading
+.progressbar_type_load .progressbar__loading
 {
     background-image: -webkit-gradient(linear, left top, right bottom,
                         color-stop(.25, rgba(255, 255, 255, .15)), color-stop(.25, transparent),
@@ -49,20 +51,49 @@
                         transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
                         transparent 75%, transparent);
 
-    -webkit-animation: animate-stripes 3s linear infinite;
-       -moz-animation: animate-stripes 3s linear infinite;
+    -webkit-animation: animate-load 3s linear infinite;
+       -moz-animation: animate-load 3s linear infinite;
 
     -webkit-background-size: 30px 30px;
        -moz-background-size: 30px 30px;
             background-size: 30px 30px;
 }
 
-@-webkit-keyframes animate-stripes
+@-webkit-keyframes animate-load
 {
     0% {background-position: 0 0;} 100% {background-position: 60px 0;}
 }
 
-@-moz-keyframes animate-stripes
+@-moz-keyframes animate-load
 {
     0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+.progressbar_type_error .progressbar__loading
+{
+    background: #900;
+}
+
+.progressbar_type_error .progressbar__loading
+{
+    -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+       -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+            box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+
+    -webkit-animation: animate-error 1s ease-out infinite;
+       -moz-animation: animate-error 1s ease-out infinite;
+}
+
+@-webkit-keyframes animate-error
+{
+    0% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+    50% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .3) inset, 0 -5px 5px rgba(255, 255, 255, .3) inset;}
+    100% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+}
+
+@-moz-keyframes animate-error
+{
+    0% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+    50% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .3) inset, 0 -5px 5px rgba(255, 255, 255, .3) inset;}
+    100% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
 }

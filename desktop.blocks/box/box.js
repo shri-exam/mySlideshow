@@ -1,5 +1,5 @@
 $(function() {
-    var photoWrap = $('.box__photo-wrapper'),
+    var photoWrapper = $('.box__photo-wrapper'),
         photoBig = $('.box__photo-item img'),
         activePhoto = $('.full-photo_state_active'),
         boxControls = $('.box__control'),
@@ -8,6 +8,7 @@ $(function() {
         photoThumb = $('.box__mini'),
         dfdTitle = $.Deferred(),
         dfdThumbs = $.Deferred(),
+        dfd,
         album = $('.album'),
         scrollBar = $('.box__thumbs-list'),
         progressbar = $('.progressbar__loading'),
@@ -16,13 +17,16 @@ $(function() {
         autoplay = $('.autoplay'),
         setActive = 0,
         speed = 450,
-        scrollLength = 0;
+        scrollLength = 0,
+        nextImages = 30,
+        lastImg,
+        nextLink = 'http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?limit=30&format=json';
 
     function alignPhoto(param) {
-        photoWrap.css('height', $(window).height());
+        photoWrapper.css('height', $(window).height());
         param.css({
-            'margin-top': photoWrap.height()/2 - param.height()/2,
-            'left': photoWrap.width()/2 - param.width()/2
+            'margin-top': photoWrapper.height()/2 - param.height()/2,
+            'left': photoWrapper.width()/2 - param.width()/2
             });
     }
 
@@ -30,7 +34,7 @@ $(function() {
         progressbar.text('Всё готово!');
         setTimeout(function () {
            $('.progressbar').fadeOut(800);
-           loading.addClass('loading_visibility_hidden');
+           loading.remove();
         }, 800);
     });
 
@@ -46,8 +50,9 @@ $(function() {
             boxControlLeft = (param.hasClass('box__control_direction_left')),
             boxControls = (param.hasClass('box__control')),
             activeFullImg = $('.full-photo_state_active'),
-            alignFullPhoto = photoWrap.width()/2 - activeFullImg.width()/2,
+            alignFullPhoto = photoWrapper.width()/2 - activeFullImg.width()/2,
             _thisHash;
+            photoThumb = $('.box__mini');
 
             boxControls ? param.addClass('box__control_disabled_yes') : param.addClass('box__mini_disabled_yes');
 
@@ -88,11 +93,11 @@ $(function() {
                 activePhoto
                     .addClass('full-photo_state_active')
                     .css({
-                        'margin-top': photoWrap.height()/2 - activePhoto.height()/2
+                        'margin-top': photoWrapper.height()/2 - activePhoto.height()/2
                     })
                     .show();
 
-                alignFullPhoto = photoWrap.width()/2 - activePhoto.width()/2;
+                alignFullPhoto = photoWrapper.width()/2 - activePhoto.width()/2;
 
             boxControlLeft ? activePhoto.css({ 'left': '-'+activePhoto.width()+'px' }).animate({ 'left': alignFullPhoto }, speed) :
                              activePhoto.css({ 'right': '-'+activePhoto.width()+'px' }).animate({ 'right': alignFullPhoto}, speed);
@@ -114,7 +119,7 @@ $(function() {
 
         setTimeout(function() {
             boxControls ? param.removeClass('box__control_disabled_yes') :
-                           photoThumb.removeClass('box__mini_disabled_yes');
+                          photoThumb.removeClass('box__mini_disabled_yes');
         }, speed);
         disableArrow();
     }
@@ -125,21 +130,27 @@ $(function() {
         (activeThumbPos === 0) ? boxControlLeft.addClass('box__control_visibility_hidden') :
                                  boxControlLeft.removeClass('box__control_visibility_hidden');
 
-        (activeThumbPos === 99) ? boxControlRight.addClass('box__control_visibility_hidden') :
+        (activeThumbPos === lastImg) ? boxControlRight.addClass('box__control_visibility_hidden') :
                                   boxControlRight.removeClass('box__control_visibility_hidden');
     }
 
-    boxControls.on('click', function() {
+    boxControls.live('click', function() {
         if(!$(this).hasClass('box__control_disabled_yes')) {
             slider($(this));
         }
     });
 
-    $.getJSON('http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?', function (data){
+    photoThumb.live('click', function() {
+        if(!photoThumb.hasClass('box__mini_disabled_yes')) {
+            slider($(this));
+        }
+    });
+
+$.getJSON(nextLink+'&callback=?', function (data){
 
         function getTitle() {
             $('.album__title-name').text(data.title);
-            $('.album__count-photos').text(' ' + data.entries.length);
+            $('.album__count-photos').text(' ' + data.imageCount);
 
             return dfdTitle.resolve();
         }
@@ -197,25 +208,19 @@ $(function() {
             getFullPhotos();
         });
 
-        photoThumb.on('click', function() {
-            if(!photoThumb.hasClass('box__mini_disabled_yes')) {
-                slider($(this));
-            }
-        });
+        // $('.box__photo-item img').live('click', function() {
+        //     if ($('.box__mini_state_active').index() === data.entries.length - 1) {
+        //         return false;
+        //     }
+        //     $('.box__control_direction_right').trigger('click');
+        // });
 
-        $('.box__photo-item img').on('click', function() {
-            if ($('.box__mini_state_active').index() === data.entries.length - 1) {
-                return false;
-            }
-            $('.box__control_direction_right').trigger('click');
-        });
-
-        autoplay.on('click', function() {
+        autoplay.live('click', function() {
             $(this).toggleClass('autoplay_checked_yes');
 
             if ($(this).hasClass('autoplay_checked_yes')) {
                 (function autoPlay(){
-                    if ($('.box__mini_state_active').index() === data.entries.length - 1) {
+                    if ($('.box__mini_state_active').index() === data.imageCount - 1) {
                         autoplay.removeClass('autoplay_checked_yes');
                         return false;
                     }
@@ -227,14 +232,54 @@ $(function() {
             }
         });
 
+        nextLink = data.links.next;
+        lastImg = data.imageCount - 1;
+    })
+    .error(function() {
+        $('.progressbar')
+            .show()
+            .removeClass('progressbar_type_load')
+            .addClass('progressbar_type_error');
+         progressbar.text('Ошибка! Перезагрузите страницу');
+    })
+    .complete(function() {
+        $('.box__mini, .box__control_direction_right').live('click', function() {
+            var countImages  = $('.box__mini').length,
+                activePic =  $('.box__mini_state_active');
+
+            if (activePic.index() > countImages - 7) {
+                $.getJSON(nextLink+'&callback=?', function (data){
+                    for (var i = 0; i < data.entries.length; i++) {
+                        $('<div>')
+                            .addClass('box__mini')
+                            .attr({
+                                hash: i + nextImages,
+                                title: data.entries[i].title
+                            })
+                            .css('background-image', 'url(' +data.entries[i].img.XS.href+ ')')
+                            .appendTo('.box__thumbs-list');
+
+                        $('<img>')
+                            .attr({
+                                id: i + nextImages,
+                                src: data.entries[i].img.XL.href
+                            })
+                            .appendTo('.box__photo-item');
+                    }
+                    nextLink = data.links.next;
+                    nextImages += 30;
+                });
+            }
+
+        });
     });
 
-    scrollBar.on('mousewheel', function(e, delta) {
+    scrollBar.live('mousewheel', function(e, delta) {
         this.scrollLeft -= (delta * 77);
         e.preventDefault();
     });
 
-    $('.box__thumb-arrow').on('click', function() {
-        scrollItems(this, 154);
+    $('.box__thumb-arrow').live('click', function() {
+        scrollItems(this, 231);
     });
 });

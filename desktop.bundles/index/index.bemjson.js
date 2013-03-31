@@ -31,7 +31,7 @@
                 },
                 {
                     block: 'progressbar',
-                    mods: { theme: 'blue', type: 'stripes' },
+                    mods: { theme: 'blue', type: 'load' },
                     content: { elem: 'loading' }
                 },
                 {
