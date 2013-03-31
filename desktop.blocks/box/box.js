@@ -54,7 +54,6 @@ $(function() {
             boxControlLeft ? activeFullImg.css({ 'left': '', 'right':  alignFullPhoto }) :
                              activeFullImg.css({ 'right': '', 'left':  alignFullPhoto });
 
-
             _thisHash = boxControls ?
                 (boxControlRight ? ($('.box__mini_state_active').next().attr('hash')) :
                                    ($('.box__mini_state_active').prev().attr('hash'))) :
@@ -103,7 +102,7 @@ $(function() {
                                      activePhoto.css({ 'right': '', 'left': alignFullPhoto });
                 }, speed);
 
-            $(window).resize(function(){
+            $(window).resize(function() {
                 alignPhoto(activePhoto);
             });
 
@@ -123,18 +122,14 @@ $(function() {
     function disableArrow() {
         var activeThumbPos = $('.box__mini_state_active').index();
 
-        if ( activeThumbPos === 0 ) {
-            boxControlLeft.addClass('box__control_visibility_hidden');
-        }
-        else if ( activeThumbPos === 99 ) {
-            boxControlRight.addClass('box__control_visibility_hidden');
-        }
-        else {
-            boxControlLeft && boxControlRight.removeClass('box__control_visibility_hidden');
-        }
+        (activeThumbPos === 0) ? boxControlLeft.addClass('box__control_visibility_hidden') :
+                                 boxControlLeft.removeClass('box__control_visibility_hidden');
+
+        (activeThumbPos === 99) ? boxControlRight.addClass('box__control_visibility_hidden') :
+                                  boxControlRight.removeClass('box__control_visibility_hidden');
     }
 
-    boxControls.on('click', function(){
+    boxControls.on('click', function() {
         if(!$(this).hasClass('box__control_disabled_yes')) {
             slider($(this));
         }
@@ -149,7 +144,7 @@ $(function() {
             return dfdTitle.resolve();
         }
 
-        $.when(getTitle()).done(function(){
+        $.when(getTitle()).done(function() {
             $('.album').removeClass('album_visibility_hidden');
         });
 
@@ -160,7 +155,8 @@ $(function() {
 
         function getThumbPhotos() {
             for (var i = 0; i < data.entries.length; i++) {
-                $('<div class="box__mini">')
+                $('<div>')
+                    .addClass('box__mini')
                     .attr({
                         hash: i,
                         title: data.entries[i].title
@@ -191,30 +187,32 @@ $(function() {
                      disableArrow();
                      autoplay.fadeIn(600);
                 });
+
             $(window).resize(function() {
                 alignPhoto(photoBigActive);
             });
         }
 
-        $.when(getThumbPhotos()).done(function(){
+        $.when(getThumbPhotos()).done(function() {
             getFullPhotos();
         });
 
-        photoThumb.on('click', function(){
+        photoThumb.on('click', function() {
             if(!photoThumb.hasClass('box__mini_disabled_yes')) {
                 slider($(this));
             }
         });
 
-        $('.box__photo-item img').on('click', function(){
+        $('.box__photo-item img').on('click', function() {
             if ($('.box__mini_state_active').index() === data.entries.length - 1) {
                 return false;
             }
             $('.box__control_direction_right').trigger('click');
         });
 
-        autoplay.on('click', function(){
+        autoplay.on('click', function() {
             $(this).toggleClass('autoplay_checked_yes');
+
             if ($(this).hasClass('autoplay_checked_yes')) {
                 (function autoPlay(){
                     if ($('.box__mini_state_active').index() === data.entries.length - 1) {
@@ -231,12 +229,12 @@ $(function() {
 
     });
 
-    $('.box__thumbs-list').on('mousewheel', function(e, delta) {
-        this.scrollLeft -= (delta * 100);
+    scrollBar.on('mousewheel', function(e, delta) {
+        this.scrollLeft -= (delta * 77);
         e.preventDefault();
     });
 
-    $('.box__thumb-arrow').on('click', function(){
+    $('.box__thumb-arrow').on('click', function() {
         scrollItems(this, 154);
     });
 });

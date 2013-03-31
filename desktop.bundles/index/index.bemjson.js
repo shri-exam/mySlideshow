@@ -1,7 +1,7 @@
 ({
     block: 'b-page',
-    title: 'Галерея картинок | ШРИ: Михаил Пешехонов',
-    favicon: 'http://yandex.st/lego/_/liBu5rfmzjkGy4nVf7wXsVl8m8w.png',
+    title: 'Галерея Яндекс.Фоток | ШРИ: Михаил Пешехонов',
+    favicon: 'http://yandex.st/lego/_/eTvq15W3rgkxDlbY83_swCCeaF0.ico',
     head: [
         { elem: 'css', url: '_index.css', ie: false },
         { elem: 'css', url: '_index', ie: true },
