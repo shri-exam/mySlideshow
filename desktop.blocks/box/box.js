@@ -242,12 +242,12 @@ $.getJSON(nextLink+'&callback=?', function (data){
          progressbar.text('Ошибка! Перезагрузите страницу');
     })
     .complete(function() {
-        $('.box__mini, .box__control_direction_right').live('click', function() {
+        function loadPicture(count) {
             var countImages  = $('.box__mini').length,
                 activePic =  $('.box__mini_state_active'),
                 newPhotos;
 
-            if (activePic.index() > countImages - 7) {
+            if (activePic.index() > countImages - count) {
 
                 if (!$('.box__mini').hasClass('disabled_yes') ) {
                     newPhotos = $.getJSON(nextLink+'&callback=?', function (data){
@@ -278,7 +278,12 @@ $.getJSON(nextLink+'&callback=?', function (data){
                     $('.box__mini').removeClass('disabled_yes');
                 });
             }
-
+        }
+        $(window).load(function() {
+            loadPicture(2); //Если последняя фотка из партии state_active, подгружаем следующую партию из 30 фоток.
+        });
+        $('.box__mini, .box__control_direction_right').live('click', function() {
+            loadPicture(7);
         });
     });
 
