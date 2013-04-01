@@ -50,13 +50,17 @@ $(function() {
             boxControlLeft = (param.hasClass('box__control_direction_left')),
             boxControls = (param.hasClass('box__control')),
             activeFullImg = $('.full-photo_state_active'),
+            activeThumbImg = $('.box__mini_state_active'),
             alignFullPhoto = photoWrapper.width()/2 - activeFullImg.width()/2,
             _thisHash;
             photoThumb = $('.box__mini');
 
+            if (!boxControls) { var lastThisImg = param.index() < activeThumbImg.index(); }
+
+
             boxControls ? param.addClass('box__control_disabled_yes') : param.addClass('box__mini_disabled_yes');
 
-            boxControlLeft ? activeFullImg.css({ 'left': '', 'right':  alignFullPhoto }) :
+            (boxControlLeft || lastThisImg) ? activeFullImg.css({ 'left': '', 'right':  alignFullPhoto }) :
                              activeFullImg.css({ 'right': '', 'left':  alignFullPhoto });
 
             _thisHash = boxControls ?
@@ -74,15 +78,16 @@ $(function() {
                                 .next()
                                 .addClass('box__mini_state_active');
 
-            boxControlLeft && $('.box__mini_state_active')
+            boxControlLeft  && $('.box__mini_state_active')
                                 .removeClass('box__mini_state_active')
                                 .prev()
                                 .addClass('box__mini_state_active');
 
         if (activeFullImg.attr('id') !== _thisHash) {
             activeFullImg = $('.full-photo_state_active');
+            activeThumbImg = $('.full-box__mini_state_active');
 
-            boxControlLeft ? activeFullImg.animate({'right': '-' + activeFullImg.width()}, speed) :
+            (boxControlLeft || lastThisImg) ? activeFullImg.animate({'right': '-' + activeFullImg.width()}, speed) :
                              activeFullImg.animate({'left': '-' + activeFullImg.width()}, speed);
 
                 setTimeout(function() {
@@ -99,11 +104,11 @@ $(function() {
 
                 alignFullPhoto = photoWrapper.width()/2 - activePhoto.width()/2;
 
-            boxControlLeft ? activePhoto.css({ 'left': '-'+activePhoto.width()+'px' }).animate({ 'left': alignFullPhoto }, speed) :
+            (boxControlLeft || lastThisImg)  ? activePhoto.css({ 'left': '-'+activePhoto.width()+'px' }).animate({ 'left': alignFullPhoto }, speed) :
                              activePhoto.css({ 'right': '-'+activePhoto.width()+'px' }).animate({ 'right': alignFullPhoto}, speed);
 
                 setTimeout(function() {
-                    boxControlLeft ? activePhoto.css({ 'left': '', 'right': alignFullPhoto }) :
+                    (boxControlLeft || lastThisImg)  ? activePhoto.css({ 'left': '', 'right': alignFullPhoto }) :
                                      activePhoto.css({ 'right': '', 'left': alignFullPhoto });
                 }, speed);
 
