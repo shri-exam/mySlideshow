@@ -19,7 +19,6 @@ $(function() {
         scrollLength = 0,
         nextImages = 30,
         lastImg,
-        scrollItems = 77,
         nextLink = 'http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?limit=30&format=json';
 
     function alignPhoto(param) {
@@ -291,7 +290,7 @@ $.getJSON(nextLink+'&callback=?', function (data){
             loadPicture(2); //Если последняя фотка из партии state_active, подгружаем следующую партию из 30 фоток.
         });
         $('.box__mini, .box__control_direction_right').live('click', function() {
-            loadPicture(15);
+            loadPicture(16);
         });
     });
 
