@@ -8,7 +8,6 @@ $(function() {
         photoThumb = $('.box__mini'),
         dfdTitle = $.Deferred(),
         dfdThumbs = $.Deferred(),
-        dfd,
         album = $('.album'),
         scrollBar = $('.box__thumbs-list'),
         progressbar = $('.progressbar__loading'),
@@ -245,29 +244,38 @@ $.getJSON(nextLink+'&callback=?', function (data){
     .complete(function() {
         $('.box__mini, .box__control_direction_right').live('click', function() {
             var countImages  = $('.box__mini').length,
-                activePic =  $('.box__mini_state_active');
+                activePic =  $('.box__mini_state_active'),
+                newPhotos;
 
             if (activePic.index() > countImages - 7) {
-                $.getJSON(nextLink+'&callback=?', function (data){
-                    for (var i = 0; i < data.entries.length; i++) {
-                        $('<div>')
-                            .addClass('box__mini')
-                            .attr({
-                                hash: i + nextImages,
-                                title: data.entries[i].title
-                            })
-                            .css('background-image', 'url(' +data.entries[i].img.XS.href+ ')')
-                            .appendTo('.box__thumbs-list');
 
-                        $('<img>')
-                            .attr({
-                                id: i + nextImages,
-                                src: data.entries[i].img.XL.href
-                            })
-                            .appendTo('.box__photo-item');
-                    }
-                    nextLink = data.links.next;
-                    nextImages += 30;
+                if (!$('.box__mini').hasClass('disabled_yes') ) {
+                    newPhotos = $.getJSON(nextLink+'&callback=?', function (data){
+                        for (var i = 0; i < data.entries.length; i++) {
+                            $('<div>')
+                                .addClass('box__mini')
+                                .attr({
+                                    hash: i + nextImages,
+                                    title: data.entries[i].title
+                                })
+                                .css('background-image', 'url(' +data.entries[i].img.XS.href+ ')')
+                                .appendTo('.box__thumbs-list');
+
+                            $('<img>')
+                                .attr({
+                                    id: i + nextImages,
+                                    src: data.entries[i].img.XL.href
+                                })
+                                .appendTo('.box__photo-item');
+                        }
+                        nextLink = data.links.next;
+                        nextImages += 30;
+                    });
+                }
+
+                $('.box__mini').addClass('disabled_yes');
+                newPhotos.success(function () {
+                    $('.box__mini').removeClass('disabled_yes');
                 });
             }
 
