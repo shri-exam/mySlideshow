@@ -85,7 +85,7 @@ $(function() {
 
         if (activeFullImg.attr('id') !== _thisHash) {
             activeFullImg = $('.full-photo_state_active');
-            activeThumbImg = $('.full-box__mini_state_active');
+            activeThumbImg = $('.box__mini_state_active');
 
             (boxControlLeft || lastThisImg) ? activeFullImg.animate({'right': '-' + activeFullImg.width()}, speed) :
                              activeFullImg.animate({'left': '-' + activeFullImg.width()}, speed);
