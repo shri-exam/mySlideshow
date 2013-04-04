@@ -1,0 +1,601 @@
+/* ../../desktop.blocks/b-page/b-page.css begin */
+.b-page
+{
+    font: 0.8em Arial, Helvetica, sans-serif;
+    color: #000;
+    background: #212831;
+
+    overflow: hidden;
+}
+/* ../../desktop.blocks/b-page/b-page.css end */
+
+/* ../../desktop.blocks/b-page/__inner/b-page__inner.css begin */
+.b-page__inner
+{
+    margin: auto;
+}
+/* ../../desktop.blocks/b-page/__inner/b-page__inner.css end */
+
+/* ../../desktop.blocks/album/album.css begin */
+.album
+{
+    background: rgba(0,0,0,0.25);
+    color: rgba(255,255,255,0.8);
+
+    padding: 15px 25px;
+    margin: 20px;
+
+    display: inline-block;
+    position: relative;
+
+    z-index: 4;
+
+    -webkit-border-radius: 7px;
+       -moz-border-radius: 7px;
+            border-radius: 7px;
+}
+/* ../../desktop.blocks/album/album.css end */
+
+/* ../../desktop.blocks/album/__title-name/album__title-name.css begin */
+.album__title-name:after
+{
+    content: " / "
+}
+/* ../../desktop.blocks/album/__title-name/album__title-name.css end */
+
+/* ../../desktop.blocks/album/__current-photo/album__current-photo.css begin */
+.album__current-photo
+{
+    display: inline-block;
+}
+
+.album__current-photo:after
+{
+    content: " из";
+    font-weight: 400;
+}
+/* ../../desktop.blocks/album/__current-photo/album__current-photo.css end */
+
+/* ../../desktop.blocks/album/__count-photos/album__count-photos.css begin */
+.album__count-photos:after
+{
+    content: " фото";
+    font-weight: 400;
+}
+/* ../../desktop.blocks/album/__count-photos/album__count-photos.css end */
+
+/* ../../desktop.blocks/album/_visibility/album_visibility_hidden.css begin */
+.album_visibility_hidden
+{
+    display: none;
+}
+/* ../../desktop.blocks/album/_visibility/album_visibility_hidden.css end */
+
+/* ../../desktop.blocks/autoplay/autoplay.css begin */
+.autoplay
+{
+    background: url("../../desktop.blocks/box/box.gif") 0 -15px no-repeat;
+
+    height: 20px;
+
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    z-index: 4;
+
+    padding-left: 40px;
+
+    color: rgba(255,255,255,0.9);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+
+    opacity: .7;
+
+    cursor: pointer;
+
+    display: none;
+
+    -webkit-transition: opacity .3s;
+       -moz-transition: opacity .3s;
+         -o-transition: opacity .3s;
+            transition: opacity .3s;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    .autoplay
+    {
+        line-height: 1.4;
+    }
+}
+
+.autoplay:hover
+{
+    opacity: 1;
+}
+
+.autoplay_checked_yes
+{
+    background-position: 0 -62px;
+}
+/* ../../desktop.blocks/autoplay/autoplay.css end */
+
+/* ../../desktop.blocks/progressbar/progressbar.css begin */
+.progressbar
+{
+    background: #1a1a1a;
+
+    width: 25%;
+
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    z-index: 3;
+
+    padding: 5px;
+
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+
+    -webkit-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+       -moz-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+            box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+
+    opacity: .85;
+}
+
+.progressbar_theme_blue .progressbar__loading
+{
+    background: #2b4f71;
+}
+
+.progressbar_type_load .progressbar__loading
+{
+    background-image: -webkit-gradient(linear, left top, right bottom,
+                        color-stop(.25, rgba(255, 255, 255, .15)), color-stop(.25, transparent),
+                        color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .15)),
+                        color-stop(.75, rgba(255, 255, 255, .15)), color-stop(.75, transparent),
+                        to(transparent));
+    background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    background-image: -ms-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    background-image: -o-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+
+    -webkit-animation: animate-load 3s linear infinite;
+       -moz-animation: animate-load 3s linear infinite;
+
+    -webkit-background-size: 30px 30px;
+       -moz-background-size: 30px 30px;
+            background-size: 30px 30px;
+}
+
+@-webkit-keyframes animate-load
+{
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+@-moz-keyframes animate-load
+{
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+.progressbar_type_error .progressbar__loading
+{
+    background: #900;
+}
+
+.progressbar_type_error .progressbar__loading
+{
+    -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+       -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+            box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+
+    -webkit-animation: animate-error 1s ease-out infinite;
+       -moz-animation: animate-error 1s ease-out infinite;
+}
+
+@-webkit-keyframes animate-error
+{
+    0% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+    50% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .3) inset, 0 -5px 5px rgba(255, 255, 255, .3) inset;}
+    100% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+}
+
+@-moz-keyframes animate-error
+{
+    0% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+    50% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .3) inset, 0 -5px 5px rgba(255, 255, 255, .3) inset;}
+    100% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+}
+/* ../../desktop.blocks/progressbar/progressbar.css end */
+
+/* ../../desktop.blocks/progressbar/__loading/progressbar__loading.css begin */
+.progressbar__loading
+{
+    display: inline-block;
+
+    width: 100%;
+    height: 100%;
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.7;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+       -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+
+    -webkit-transition: width .4s ease-in-out;
+       -moz-transition: width .4s ease-in-out;
+        -ms-transition: width .4s ease-in-out;
+         -o-transition: width .4s ease-in-out;
+            transition: width .4s ease-in-out;
+}
+/* ../../desktop.blocks/progressbar/__loading/progressbar__loading.css end */
+
+/* ../../desktop.blocks/box/box.css begin */
+.box
+{
+    text-align: center;
+}
+
+.box__inner_position_bottom
+{
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+
+    z-index: 3;
+
+    width: 100%;
+    overflow: hidden;
+}
+/* ../../desktop.blocks/box/box.css end */
+
+/* ../../desktop.blocks/box/__mini/box__mini.css begin */
+.box__mini
+{
+    width: 65px;
+    height: 65px;
+
+    margin: 3px 6px;
+    display: inline-block;
+
+    cursor: pointer;
+
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+
+    vertical-align: top;
+    overflow: hidden;
+
+    position: relative;
+}
+
+.box__mini:hover
+{
+    border: 3px solid rgba(255,255,255,.7);
+    margin: 0 3px;
+}
+
+.box__mini:hover.box__mini:before
+{
+    visibility: visible;
+    opacity: 1;
+    height: 55px;
+}
+
+.box__mini:before
+{
+    content: attr(title);
+
+    margin-top: 25px;
+    padding: 5px 0;
+
+    max-height: 55px;
+    width: 100%;
+    height: 0;
+
+    visibility: hidden;
+    opacity: 0;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 0 1px 0 #000;
+    text-overflow: ellipsis;
+    line-height: 1;
+    font-size: 11px;
+
+    white-space: normal;
+
+    background: rgba(0,0,0,0.5);
+
+    -webkit-transition: .4s;
+       -moz-transition: .4s;
+         -o-transition: .4s;
+            transition: .4s;
+}
+
+.box__mini.box__mini_state_active
+{
+    border: 3px solid rgba(50,153,233,.7);
+    margin: 0 3px;
+}
+/* ../../desktop.blocks/box/__mini/box__mini.css end */
+
+/* ../../desktop.blocks/loading/loading.css begin */
+.loading
+{
+    background: url("../../desktop.blocks/loading/loading.gif") 0 0 / 100% 100%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    margin: -8px 0 0 -32px;
+
+    width: 5%;
+    height: 4%;
+
+    max-height: 16px;
+    max-width: 64px;
+}
+/* ../../desktop.blocks/loading/loading.css end */
+
+/* ../../desktop.blocks/box/__control/box__control.css begin */
+.box__control
+{
+    position: absolute;
+    top: 0;
+
+    z-index: 3;
+
+    width: 10%;
+    height: 100%;
+
+    cursor: pointer;
+
+    -webkit-transition: .3s;
+       -moz-transition: .3s;
+         -o-transition: .3s;
+            transition: .3s;
+
+    visibility: hidden;
+    opacity: 0;
+}
+
+.b-page:hover .box__control
+{
+    visibility: visible;
+    opacity: 1;
+}
+
+.box__control:hover
+{
+    background: rgba(0,0,0,0.1);
+}
+
+.box__control_direction_left
+{
+    left: 0;
+}
+
+.box__control_direction_left.box__control:after
+{
+    left: 35%;
+}
+
+.box__control_direction_right
+{
+    right: 0;
+}
+
+.box__control_direction_right.box__control:after
+{
+    right: 35%;
+    background-position: 0 -137px;
+}
+
+.box__control:after
+{
+    background: url("../../desktop.blocks/box/box.gif") 0 -92px no-repeat;
+
+    position: absolute;
+    top: 50%;
+
+    margin-top: -25px;
+
+    content: "";
+
+    width: 30px;
+    height: 35px;
+
+    opacity: .3;
+
+    -webkit-transition: .3s;
+       -moz-transition: .3s;
+         -o-transition: .3s;
+            transition: .3s;
+
+    color: #fff;
+}
+
+.box__control:hover.box__control:after
+{
+    opacity: 1;
+    font-size: 36px;
+}
+
+.box__control_visibility_hidden
+{
+    display: none;
+}
+/* ../../desktop.blocks/box/__control/box__control.css end */
+
+/* ../../desktop.blocks/box/__photo/box__photo.css begin */
+.box__photo
+{
+    position: absolute;
+       top: 0;
+     right: 0;
+    bottom: 0;
+      left: 0;
+}
+/* ../../desktop.blocks/box/__photo/box__photo.css end */
+
+/* ../../desktop.blocks/box/__photo-wrapper/box__photo-wrapper.css begin */
+/*.box__photo-wrapper
+{
+    text-align: center;
+}*/
+/* ../../desktop.blocks/box/__photo-wrapper/box__photo-wrapper.css end */
+
+/* ../../desktop.blocks/box/__photo-item/box__photo-item.css begin */
+.box__photo-item
+{
+    width: 100%;
+    height: 100%;
+}
+
+.box__photo-item img
+{
+    position: absolute;
+    right: 0;
+
+    z-index: 2;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    cursor: pointer;
+
+    display: none;
+}
+/* ../../desktop.blocks/box/__photo-item/box__photo-item.css end */
+
+/* ../../desktop.blocks/box/__wrapper-thumbs/box__wrapper-thumbs.css begin */
+.box__wrapper-thumbs
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    z-index: 3;
+
+    width: 100%;
+    height: 125px;
+}
+
+.box__wrapper-thumbs:hover .box__thumbs-list
+{
+    height: 98px;
+}
+/* ../../desktop.blocks/box/__wrapper-thumbs/box__wrapper-thumbs.css end */
+
+/* ../../desktop.blocks/box/__thumb-arrow/box__thumb-arrow.css begin */
+.box__thumb-arrow
+{
+    width: 25px;
+    height: 100%;
+
+    background: rgba(0,0,0,0.9);
+    box-shadow: 7px 0 5px -5px rgba(0,0,0,0.9);
+
+    position: absolute;
+    top: 0;
+    z-index: 1;
+
+    cursor: pointer;
+}
+
+.box__thumb-arrow:after
+{
+    position: absolute;
+    top: 30px;
+    left: 6px;
+    content: "";
+
+    width: 15px;
+    height: 23px;
+
+    background: url("../../desktop.blocks/box/box.gif") -16px -104px no-repeat;
+
+    -webkit-transition: .3s;
+       -moz-transition: .3s;
+         -o-transition: .3s;
+            transition: .3s;
+
+    opacity: .4;
+}
+
+.box__thumb-arrow.box__thumb-arrow_direction_right.box__thumb-arrow:after
+{
+    background-position: -15px -153px;
+}
+
+.box__thumb-arrow:hover.box__thumb-arrow:after
+{
+    opacity: 1;
+}
+
+.box__thumb-arrow.box__thumb-arrow_direction_left
+{
+    left: 0;
+}
+
+.box__thumb-arrow.box__thumb-arrow_direction_right
+{
+    box-shadow: -7px 0 5px -5px rgba(0,0,0,0.9);
+    right: 0;
+}
+/* ../../desktop.blocks/box/__thumb-arrow/box__thumb-arrow.css end */
+
+/* ../../desktop.blocks/box/__thumbs-list/box__thumbs-list.css begin */
+.box__thumbs-list
+{
+    background: rgba(0,0,0,0.5);
+    height: 0;
+
+    padding: 7px 32px 0;
+    margin-bottom: -20px;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    position: relative;
+
+    white-space: nowrap;
+
+    -webkit-transition: .5s;
+       -moz-transition: .5s;
+         -o-transition: .5s;
+            transition: .5s;
+}
+/* ../../desktop.blocks/box/__thumbs-list/box__thumbs-list.css end */
+
